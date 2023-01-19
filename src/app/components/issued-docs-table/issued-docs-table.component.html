@@ -1,0 +1,45 @@
+<br>
+<div class="">
+  <button (click)="exportToExcel()">Descargar reporte</button>
+  <hr>
+  <table cTable [responsive]="true" responsive="sm" id="issued-table">
+    <thead cTableColor="dark">
+      <tr>
+        <th scope="col">Id Sucursal</th>
+        <th scope="col">Nombre Sucursal</th>
+        <th scope="col">Año</th>
+        <th scope="col">Enero</th>
+        <th scope="col">Febrero</th>
+        <th scope="col">Marzo</th>
+        <th scope="col">Abril</th>
+        <th scope="col">Mayo</th>
+        <th scope="col">Junio</th>
+        <th scope="col">Julio</th>
+        <th scope="col">Agosto</th>
+        <th scope="col">Septiembre</th>
+        <th scope="col">Octubre</th>
+        <th scope="col">Noviembre</th>
+        <th scope="col">Diciembre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let resume of resumes">
+        <td>{{ resume[0] }}</td>
+        <td>{{ resume[1] }}</td>
+        <td>{{ resume[2] }}</td>
+        <td>{{ resume[3] }}</td>
+        <td>{{ resume[4] }}</td>
+        <td>{{ resume[5] }}</td>
+        <td>{{ resume[6] }}</td>
+        <td>{{ resume[7] }}</td>
+        <td>{{ resume[8] }}</td>
+        <td>{{ resume[9] }}</td>
+        <td>{{ resume[10] }}</td>
+        <td>{{ resume[11] }}</td>
+        <td>{{ resume[12] }}</td>
+        <td>{{ resume[13] }}</td>
+        <td>{{ resume[14] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

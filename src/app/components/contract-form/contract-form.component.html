@@ -1,0 +1,169 @@
+<div class="wrapper">
+    <form id="formContent" [formGroup]="contractFormGroup" (ngSubmit)="onSubmit()">
+      <!-- Tabs Titles -->
+      <div cForm class="form row g-3">
+        <input cFormControl id="shared-contract" type="text" placeholder="Número contrato compartido" value="" hidden/> <!-- To fill -->
+        <h2 class="active">Datos del cliente</h2>
+        <c-col [xs]="6">
+          <label>NIT/CC</label>
+          <input cFormControl id="nit" type="text" value="{{branch.client.nit}}" disabled/>
+        </c-col>
+        <c-col [xs]="6">
+          <label>Nombre Cliente</label>
+          <input cFormControl id="client-name" type="text" value="{{branch.client.name}}" disabled/>
+        </c-col>
+        <c-col [xs]="12">
+          <label>ID - Nombre sucursal</label>
+          <input cFormControl id="inicial" type="text" placeholder="id" value="{{branch.branchId}} - {{branch.name}}" disabled/>
+        </c-col>
+        <c-col [xs]="12"></c-col>
+        <div formGroupName="tempContract" class="form row g-3">
+          <h2 class="active">Datos del contrato</h2>
+          <c-col [xs]="6">
+            <label>¿Tiene contrato compartido?</label>
+            <select cSelect formControlName="sharedContract">
+              <option [value]=true>Si</option>
+              <option [value]=false>No</option>
+            </select>
+          </c-col>
+          <c-col [xs]="6">
+            <label># Contrato compartido</label>
+            <input cFormControl formControlName="sharedContractId" type="text" placeholder="Sólo si aplica" value=""/>
+          </c-col>
+          <c-col [xs]="3">
+            <label># Contrato</label>
+            <input cFormControl formControlName="contractId" type="text" value="" required/>
+          </c-col>
+          <c-col [xs]="3">
+            <label>Fecha contrato</label>
+            <input cFormControl formControlName="contractDate" type="date"/>
+          </c-col>
+          <c-col [xs]="3">
+            <label>Asesor Comercial</label>
+            <input cFormControl formControlName="createdBy" type="text" value=""/>
+          </c-col>
+          <c-col [xs]="3">
+            <label>Costo implementación</label>
+            <input cFormControl formControlName="implementationCost" type="number" value=0/>
+          </c-col>
+          <c-col [xs]="4">
+            <label>¿Implementación ya fue pagada?</label>
+            <select cSelect formControlName="implementationAlreadyPaid">
+              <option [value]=true>Si</option>
+              <option [value]=false>No</option>
+            </select>
+          </c-col>
+          <c-col [xs]="2">
+            <label>¿Incremento IPC?</label>
+            <select cSelect formControlName="ipcIncrease">
+              <option [value]=true>Si</option>
+              <option [value]=false>No</option>
+            </select>
+          </c-col>
+          <c-col [xs]="2">
+            <label>¿Pago anticipado?</label>
+            <select cSelect formControlName="prepaid">
+              <option [value]=true>Si</option>
+              <option [value]=false>No</option>
+            </select>
+          </c-col>
+          <c-col [xs]="4">
+            <label>Frecuencia mantenimiento</label>
+            <select cSelect formControlName="maintenanceFrequency">
+              <option *ngFor="let frequency of frequencies" [value]="frequency.frequencyId">{{frequency.frequencyName}}</option>
+            </select>
+          </c-col>
+          <c-col [xs]="2"></c-col>
+          <c-col [xs]="3">
+            <label>Costo mantenimiento</label>
+            <input cFormControl formControlName="maintenanceCost" type="number" placeholder="Costo" value=0/>
+          </c-col>
+          <c-col [xs]="5">
+            <label>¿Mantenimiento ya fue pagado (Este periodo)?</label>
+            <select cSelect formControlName="maintenanceAlreadyPaid">
+              <option [value]=true>Si</option>
+              <option [value]=false>No</option>
+            </select>
+          </c-col>
+        </div>
+        <div formGroupName="paymentPlan" class="form row g-3">
+          <h2 class="active">Plan de Pago</h2>
+          <c-col [xs]="12">
+            <label>Tipo de Pago</label>
+            <select ng-model="paymentTypeId" cSelect formControlName="discriminatorType" (change)="setPaymentType($event)">
+              <option [value]=1>Paquete de documentos (Plan estándar)</option>
+              <option [value]=4>Paquete de documentos</option>
+              <option [value]=2>Documentos emitidos</option>
+              <option [value]=3>Rango mensual</option>
+            </select>
+          </c-col>
+          <div *ngIf="paymentTypeId==1; then standardDocumentPackage"></div>
+          <div *ngIf="paymentTypeId==4; then documentPackage"></div>
+          <div *ngIf="paymentTypeId==2; then issuedDocuments"></div>
+          <div *ngIf="paymentTypeId==3; then monthlyRange"></div>
+          <ng-template #standardDocumentPackage>
+            <c-col [xs]="3">
+              <label>Paquete</label>
+              <select ng-model="selectedPackage" cSelect formControlName="packageName" (change)="selectPackage($event)">
+                <option *ngFor="let package of documentPackages" [value]="package.id">{{package.name}}</option>
+              </select>
+            </c-col>
+            <c-col [xs]="2">
+              <label># Documentos</label>
+              <input cFormControl formControlName="documentQuantity" readonly type="number" value="{{selectedPackage.docQuantity}}"/>
+            </c-col>
+            <c-col [xs]="2">
+              <label>Valor Paquete</label>
+              <input cFormControl formControlName="packagePrice" readonly type="number" value="{{selectedPackage.price}}"/>
+            </c-col>
+            <c-col [xs]="2">
+              <label>Doc. Adic</label>
+              <input cFormControl formControlName="documentPrice" readonly type="number" value="{{selectedPackage.additionalDoc}}"/>
+            </c-col>
+            <c-col [xs]="3">
+              <label>Frecuencia de Cobro</label>
+              <input cFormControl formControlName="paymentFrequency" readonly type="text" value="{{selectedPackage.frequency.frequencyName}}"/>
+            </c-col>
+          </ng-template>
+          <ng-template #documentPackage>
+            <c-col [xs]="3">
+              <label># Documentos</label>
+              <input cFormControl formControlName="documentQuantity" type="number" value="{{selectedPackage.docQuantity}}"/>
+            </c-col>
+            <c-col [xs]="3">
+              <label>Valor Paquete</label>
+              <input cFormControl formControlName="packagePrice" type="number" value="{{selectedPackage.price}}"/>
+            </c-col>
+            <c-col [xs]="2">
+              <label>Doc. Adic</label>
+              <input cFormControl formControlName="documentPrice" type="number" value="{{selectedPackage.additionalDoc}}"/>
+            </c-col>
+            <c-col [xs]="4">
+              <label>Frecuencia de Cobro</label>
+              <select cSelect formControlName="paymentFrequency">
+                <option *ngFor="let frequency of frequencies" [value]="frequency.frequencyId">{{frequency.frequencyName}}</option>
+              </select>
+            </c-col>
+          </ng-template>
+          <ng-template #issuedDocuments>
+            <c-col [xs]="4"></c-col>
+            <c-col [xs]="4">
+              <label>Valor por documento</label>
+              <input cFormControl formControlName="documentPrice" type="number" value=0/>
+            </c-col>
+            <c-col [xs]="4"></c-col>
+          </ng-template>
+          <ng-template #monthlyRange>
+            <c-col [xs]="12">
+              <label>Rangos de cobro (Formato JSON)</label>
+              <input cFormControl formControlName="costRange" type="text" value=""/>
+            </c-col>
+          </ng-template>
+        </div>
+        <c-col [xs]="12">
+          <input type="submit" value="Guardar contrato"/>
+        </c-col>
+      </div>
+    </form>
+  </div>
+  

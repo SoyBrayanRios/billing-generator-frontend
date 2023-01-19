@@ -1,0 +1,30 @@
+<div class="">
+    <div class="alert alert-warning col-md-12" role="alert">
+      A continuación encontrará los meses en los que ya se generó facturación.</div>
+    <table cTable [responsive]="true" responsive="sm">
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">Año</th>
+          <th scope="col">Mes</th>
+          <th scope="col">Factura Inicial</th>
+          <th scope="col">Factura Final</th>
+          <th scope="col">Faceldi</th>
+          <th scope="col">Smart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of details">
+          <td>{{detail.year}}</td>
+          <td>{{detail.month}}</td>
+          <td>{{detail.initialInvoice}}</td>
+          <td>{{detail.finalInvoice}}</td>
+          <td>
+              <a class="btn-link" (click)="downloadFaceldiExcel(detail.year, detail.month)"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
+          </td>
+          <td>
+            <a class="btn-link" (click)="downloadFaceldiExcel(detail.year, detail.month)"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,26 @@
+<div class="">
+    <div class="alert alert-warning col-md-12" role="alert">
+      Por favor relacione los datos de los contratos faltantes en la siguiente tabla.</div>
+    <table cTable [responsive]="true" responsive="sm">
+      <thead cTableColor="dark">
+        <tr>
+          <th scope="col">Nit</th>
+          <th scope="col">Razón Social</th>
+          <th scope="col">Id Sucursal</th>
+          <th scope="col">Nombre Sucursal</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let branch of branches">
+          <td>{{branch.client.nit}}</td>
+          <td>{{branch.client.name}}</td>
+          <td>{{branch.branchId}}</td>
+          <td>{{branch.name}}</td>
+          <td align="center">
+              <a routerLink="/contract/{{branch.branchId}}"><fa-icon [icon]="faFolderPlus" size="lg"></fa-icon></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
