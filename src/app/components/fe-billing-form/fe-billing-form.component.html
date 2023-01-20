@@ -1,28 +1,28 @@
 <div class="wrapper">
-    <div id="formContent">
+    <div id="formContent"[formGroup]="billingFormGroup">
       <!-- Tabs Titles -->
       <h2 class="active">Datos requeridos</h2>
       <div cForm class="form row g-3">
         <br>
         <c-col [md]="4">
           <label>Año</label>
-          <select ng-model="selectedYear" cSelect (change)="updateYear($event)">
+          <select cFormControl formControlName="year" cSelect (change)="updateYear($event)">
             <option *ngFor="let year of years" [value]="year">{{year}}</option>
           </select>
         </c-col>
         <c-col [md]="4">
           <label>Mes</label>
-          <select ng-model="selectedMonth" cSelect (change)="updateMonth($event)">
+          <select cFormControl formControlName="month" cSelect (change)="updateMonth($event)">
             <option *ngFor="let month of months" [value]="month.index">{{month.name}}</option>
           </select>
         </c-col>
         <c-col [xs]="4">
           <label>Consecutivo Inicial</label>
-          <input ng-model="initialInvoice" cFormControl id="inicial" type="number"/>
+          <input cFormControl formControlName="initialInvoice" cFormControl id="inicial" type="number"/>
         </c-col>
         <c-col [xs]="3"></c-col>
         <c-col [xs]="6">
-          <input (click)="generateBills(selectedYear, selectedMonth, initialInvoice)" type="submit" value="Calcular Facturación">
+          <input (click)="generateBills()" type="submit" value="Calcular Facturación">
         </c-col>
       </div>
     </div>

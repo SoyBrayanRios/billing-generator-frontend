@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BillingService } from 'src/app/services/billing.service';
-import { FeBillingFormService } from 'src/app/services/fe-billing-form.service';
-import { InvoiceResumeService } from 'src/app/services/invoice-resume.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class FeBillingFormComponent implements OnInit {
 
+  billingFormGroup!: FormGroup;
   years: any[] = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028];
   months: any[] = [{name: 'Enero', index: 1},
                   {name: 'Febrero', index: 2},
@@ -29,9 +29,16 @@ export class FeBillingFormComponent implements OnInit {
   selectedMonth: number = this.months[0]['index'];
   initialInvoice: number = 2674;
 
-  constructor(private billingService: BillingService) { }
+  constructor(private billingService: BillingService,
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.billingFormGroup = this.formBuilder.group({
+      year: [2019],
+      month: [1],
+      initialInvoice: [0]
+    });
   }
 
   updateYear(event: any) {
@@ -42,7 +49,11 @@ export class FeBillingFormComponent implements OnInit {
     this.selectedMonth = event.target.value;
   }
 
-  generateBills(year: number, month: number, initialInvoice: number) {
+  generateBills() {
+    let year = this.billingFormGroup.get('year')?.value;
+    let month = this.billingFormGroup.get('month')?.value;
+    let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
+    
     this.billingService.generateBills(year, month, initialInvoice).subscribe({
       next: response => {
         console.log('Response: ', response);
@@ -51,6 +62,7 @@ export class FeBillingFormComponent implements OnInit {
           icon: 'success',
           title: response.response,
           showConfirmButton: true,
+          willClose: () => { this.router.navigateByUrl('/file-download') }
         });
       },
       error: err => {
@@ -62,7 +74,5 @@ export class FeBillingFormComponent implements OnInit {
         });
       }
     });
-    //console.log(year, month, initialInvoice);
-    
   }
 }
