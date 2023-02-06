@@ -36,18 +36,24 @@ export class ContractFormComponent implements OnInit {
     {frequencyId: 8, frequencyName: "Anual"}
   ];
   documentPackages: any = [
-    {id: 1, name: "Fantasía", docQuantity: 5, price: 15000, additionalDoc: 620, frequency: this.frequencies[7]},
-    {id: 2, name: "Bronce", docQuantity: 10, price: 29900, additionalDoc: 620, frequency: this.frequencies[7]},
-    {id: 3, name: "Plata", docQuantity: 20, price: 41900, additionalDoc: 620, frequency: this.frequencies[7]},
-    {id: 4, name: "Oro", docQuantity: 50, price: 55900, additionalDoc: 620, frequency: this.frequencies[7]},
-    {id: 5, name: "Bolsa 1", docQuantity: 250, price: 162500, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 6, name: "Bolsa 2", docQuantity: 500, price: 290000, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 7, name: "Bolsa 3", docQuantity: 1000, price: 499000, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 8, name: "Independientes", docQuantity: 25, price: 15000, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 9, name: "Emprendedores", docQuantity: 100, price: 49900, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 10, name: "Pymes", docQuantity: 300, price: 69900, additionalDoc: 620, frequency: this.frequencies[3]} ,
-    {id: 11, name: "Crecimiento", docQuantity: 500, price: 99900, additionalDoc: 620, frequency: this.frequencies[3]},
-    {id: 12, name: "Empresarial", docQuantity: 1000, price: 149900, additionalDoc: 620, frequency: this.frequencies[3]}
+    {id: 1, name: "Fantasía", docQuantity: 5, price: 15000, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
+    {id: 2, name: "Bronce", docQuantity: 10, price: 29900, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
+    {id: 3, name: "Plata", docQuantity: 20, price: 41900, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
+    {id: 4, name: "Oro", docQuantity: 50, price: 55900, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
+    {id: 5, name: "Bolsa 1", docQuantity: 250, price: 162500, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 6, name: "Bolsa 2", docQuantity: 500, price: 290000, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 7, name: "Bolsa 3", docQuantity: 1000, price: 499000, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 8, name: "Independientes", docQuantity: 25, price: 15000, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 9, name: "Emprendedores", docQuantity: 100, price: 49900, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 10, name: "Pymes", docQuantity: 300, price: 69900, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 11, name: "Crecimiento", docQuantity: 500, price: 99900, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 12, name: "Empresarial", docQuantity: 1000, price: 149900, additionalDoc: 650, frequency: this.frequencies[3], costRange: ''},
+    {id: 12, name: "Plan S", docQuantity: 100, price: 29900, additionalDoc: 650, frequency: this.frequencies[3], 
+    costRange: '{"Planes":[{"Nombre":"Plan S","Desde":0,"Hasta":100,"Valor":29900},{"Nombre":"Plan M","Desde":101,"Hasta":500,"Valor":69900},{"Nombre":"Plan L","Desde":501,"Hasta":99999999,"Valor":99900}]}'},
+    {id: 12, name: "Plan M", docQuantity: 500, price: 69900, additionalDoc: 650, frequency: this.frequencies[3],
+    costRange: '{"Planes":[{"Nombre":"Plan S","Desde":0,"Hasta":100,"Valor":29900},{"Nombre":"Plan M","Desde":101,"Hasta":500,"Valor":69900},{"Nombre":"Plan L","Desde":501,"Hasta":99999999,"Valor":99900}]}'},
+    {id: 12, name: "Plan L", docQuantity: 1000, price: 99900, additionalDoc: 650, frequency: this.frequencies[3],
+    costRange: '{"Planes":[{"Nombre":"Plan S","Desde":0,"Hasta":100,"Valor":29900},{"Nombre":"Plan M","Desde":101,"Hasta":500,"Valor":69900},{"Nombre":"Plan L","Desde":501,"Hasta":99999999,"Valor":99900}]}'}
   ];
   selectedPackage: any = this.documentPackages[0];
 
@@ -85,7 +91,7 @@ export class ContractFormComponent implements OnInit {
         documentQuantity: [this.selectedPackage.docQuantity],
         packagePrice: [this.selectedPackage.price],
         documentPrice: [this.selectedPackage.additionalDoc],
-        costRange: [''],
+        costRange: [this.selectedPackage.costRange],
         paymentFrequency: [this.selectedPackage.frequency.frequencyName]
       })
     });
@@ -145,6 +151,7 @@ export class ContractFormComponent implements OnInit {
     this.contractFormGroup.get('paymentPlan.packagePrice')?.setValue(this.selectedPackage.price);
     this.contractFormGroup.get('paymentPlan.documentPrice')?.setValue(this.selectedPackage.additionalDoc);
     this.contractFormGroup.get('paymentPlan.paymentFrequency')?.setValue(this.selectedPackage.frequency.frequencyName);
+    this.contractFormGroup.get('paymentPlan.costRange')?.setValue(this.selectedPackage.costRange);
   }
 
   async onSubmit() {
@@ -176,7 +183,6 @@ export class ContractFormComponent implements OnInit {
     this.contract.branch = this.branch;
     this.contract.maintenanceType = maintenanceType;
     let tempDate: Date = this.contract.contractDate;
-    console.log(tempDate);
     
     //this.contract.contractDate = tempDate.getDate() + 1;
 

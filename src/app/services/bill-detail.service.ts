@@ -20,7 +20,7 @@ export class BillDetailService {
     return this.httpClient.get<any>(searchUrl);
   }
 
-  async downloadFaceldiExcel(year: number, month: number) {
+  async downloadFaceldiExcel(year: number, month: number, bills: string[]) {
     const fileName = `Facturacion_${year}_${month}.xlsx`;
     const header = [
       'Fc_Tipo Operación',
@@ -127,21 +127,37 @@ export class BillDetailService {
 
     worksheet.addRow(header);
 
-    this.billingService.getFaceldiReport(year, month).subscribe({
-      next: response => {
-        this.rows = response
-        this.rows.forEach(row => {
-          let rowArray = row.split(';');
-          worksheet.addRow(rowArray);
-        });
-        workbook.xlsx.writeBuffer().then((data: any) => {
-          const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-          fileSaver.saveAs(blob, fileName);
-        });
-      },
-      error: err => {
-        console.log(err);
-      }
-    });  
+    if (bills == null || bills.length == 0) {
+      this.billingService.getFaceldiReport(year, month).subscribe({
+        next: response => {
+          this.rows = response
+          this.rows.forEach(row => {
+            let rowArray: any = row.split(';');
+            rowArray[2] =  Number(rowArray[2]);
+            rowArray[56] = Number(rowArray[56]);
+            rowArray[57] = Number(rowArray[57]);
+            rowArray[62] = Number(rowArray[62]);
+            rowArray[63] = Number(rowArray[63]);
+            worksheet.addRow(rowArray);
+          });
+          workbook.xlsx.writeBuffer().then((data: any) => {
+            const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            fileSaver.saveAs(blob, fileName);
+          });
+        },
+        error: err => {
+          console.log(err);
+        }
+      });  
+    } else {
+      bills.forEach(row => {
+        let rowArray = row.split(';');
+        worksheet.addRow(rowArray);
+      });
+      workbook.xlsx.writeBuffer().then((data: any) => {
+        const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        fileSaver.saveAs(blob, fileName);
+      });
+    }
   }
 }

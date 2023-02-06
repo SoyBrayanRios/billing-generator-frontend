@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BillDetailService } from 'src/app/services/bill-detail.service';
 import { BillingService } from 'src/app/services/billing.service';
 import Swal from 'sweetalert2';
 
@@ -31,6 +32,7 @@ export class FeBillingFormComponent implements OnInit {
 
   constructor(private billingService: BillingService,
     private formBuilder: FormBuilder,
+    private billDetailService: BillDetailService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -74,5 +76,16 @@ export class FeBillingFormComponent implements OnInit {
         });
       }
     });
+  }
+
+  generateTestBills() {
+    let year = this.billingFormGroup.get('year')?.value;
+    let month = this.billingFormGroup.get('month')?.value;
+    let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
+    
+    this.billingService.getTestBills(year, month, initialInvoice).subscribe(
+      data => {
+        this.billDetailService.downloadFaceldiExcel(year, month, data);
+      });
   }
 }

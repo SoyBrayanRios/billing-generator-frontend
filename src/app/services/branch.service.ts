@@ -8,7 +8,7 @@ import { Branch } from '../common/branch';
 })
 export class BranchService {
 
-  private baseUrl = 'http://localhost:8080/api/branch';
+  private baseUrl = 'http://localhost:8080/api/branches';
 
   constructor(private httpClient: HttpClient) { }
 

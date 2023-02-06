@@ -1,4 +1,6 @@
 .wrapper {
+  display: flex;
+  justify-content: center;
   width: 100%;
   @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
   @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));

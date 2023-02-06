@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
 
 import * as XLSX from 'xlsx';
 
 import { InvoiceResumeService } from 'src/app/services/invoice-resume.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-issued-docs-table',
@@ -12,19 +14,28 @@ import { InvoiceResumeService } from 'src/app/services/invoice-resume.service';
 })
 export class IssuedDocsTableComponent implements OnInit {
 
+  faRotateRight = faRotateRight;
+  reportFormGroup!: FormGroup;
   resumes: string[] = [];
-  name = 'Reporte_Emitidos.xlsx';
+  selectedYear: number = 2023;
+  name = '';
 
   constructor(private invoiceResumeService: InvoiceResumeService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.reportFormGroup = this.formBuilder.group({
+      year: [2023]
+    });
+
     this.route.paramMap.subscribe(() => {
-      this.listResumes(2022);
+      this.listResumes(2023);
     });
   }
 
   listResumes(year: number) {
+    this.name = `Reporte_Emitidos_${year}.xlsx`;
     this.invoiceResumeService.getInvoiceResumeTable(year).subscribe(
       this.processResumeResult());
   }
@@ -40,9 +51,19 @@ export class IssuedDocsTableComponent implements OnInit {
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+    XLSX.utils.book_append_sheet(book, worksheet, 'Resumen');
 
     XLSX.writeFile(book, this.name);
+  }
+
+  updateReport() {
+    this.selectedYear = this.reportFormGroup.get('year')?.value;
+    this.listResumes(this.selectedYear);
+  }
+
+  updateYear(event: any) {
+    this.selectedYear = event.target.value;
+    this.updateReport();
   }
 
 }

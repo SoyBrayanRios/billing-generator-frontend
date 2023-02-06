@@ -1,10 +1,10 @@
-.wrapper {
-    align-items: left; 
-    justify-content: left;
-    width: 100%;
-    min-height: 100%;
-    display: inline-block;
-  }
+.fit {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
   
   #formContent {
       display: inline-block;

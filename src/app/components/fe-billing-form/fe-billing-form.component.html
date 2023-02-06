@@ -1,30 +1,68 @@
-<div class="wrapper">
+<div class="pad-15">
+  <c-card id="formContent"[formGroup]="billingFormGroup">
+    <c-card-body>
+      <h2 cCardTitle class="active">Datos requeridos</h2>
+        <div cForm class="form row g-3">
+          <br>
+          <c-col [lg]="4" [md]="12">
+            <label>Año</label>
+            <select cFormControl formControlName="year" cSelect (change)="updateYear($event)">
+              <option *ngFor="let year of years" [value]="year">{{year}}</option>
+            </select>
+          </c-col>
+          <c-col [lg]="4" [md]="12">
+            <label>Mes</label>
+            <select cFormControl formControlName="month" cSelect (change)="updateMonth($event)">
+              <option *ngFor="let month of months" [value]="month.index">{{month.name}}</option>
+            </select>
+          </c-col>
+          <c-col [lg]="4" [md]="12">
+            <label>Consecutivo Inicial</label>
+            <input cFormControl formControlName="initialInvoice" cFormControl id="inicial" type="number"/>
+          </c-col>
+          <div class="row" style="display: flex; padding-top: 2vh; justify-content: center; align-items: center;">
+            <c-col [lg]="6" [md]="12">
+              <input (click)="generateTestBills()" type="button" value="Facturación de Prueba">
+            </c-col>
+            <c-col [lg]="6" [md]="12">
+              <input (click)="generateBills()" type="submit" value="Calcular Facturación">
+            </c-col>
+          </div>
+        </div>
+    </c-card-body>
+</c-card>
+</div>
+
+<!--<div class="wrapper">
     <div id="formContent"[formGroup]="billingFormGroup">
-      <!-- Tabs Titles -->
       <h2 class="active">Datos requeridos</h2>
       <div cForm class="form row g-3">
         <br>
-        <c-col [md]="4">
+        <c-col [lg]="4" [md]="12">
           <label>Año</label>
           <select cFormControl formControlName="year" cSelect (change)="updateYear($event)">
             <option *ngFor="let year of years" [value]="year">{{year}}</option>
           </select>
         </c-col>
-        <c-col [md]="4">
+        <c-col [lg]="4" [md]="12">
           <label>Mes</label>
           <select cFormControl formControlName="month" cSelect (change)="updateMonth($event)">
             <option *ngFor="let month of months" [value]="month.index">{{month.name}}</option>
           </select>
         </c-col>
-        <c-col [xs]="4">
+        <c-col [lg]="4" [md]="12">
           <label>Consecutivo Inicial</label>
           <input cFormControl formControlName="initialInvoice" cFormControl id="inicial" type="number"/>
         </c-col>
-        <c-col [xs]="3"></c-col>
-        <c-col [xs]="6">
-          <input (click)="generateBills()" type="submit" value="Calcular Facturación">
-        </c-col>
+        <div class="row" style="display: flex; padding-top: 2vh; justify-content: center; align-items: center;">
+          <c-col [lg]="6" [md]="12">
+            <input (click)="generateTestBills()" type="button" value="Facturación de Prueba">
+          </c-col>
+          <c-col [lg]="6" [md]="12">
+            <input (click)="generateBills()" type="submit" value="Calcular Facturación">
+          </c-col>
+        </div>
       </div>
     </div>
-  </div>
+  </div>-->
   

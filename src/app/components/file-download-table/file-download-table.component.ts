@@ -30,7 +30,7 @@ export class FileDownloadTableComponent implements OnInit {
   }
 
   downloadFaceldiExcel(year: number, month: number) {
-    this.billDetailService.downloadFaceldiExcel(year, month);
+    this.billDetailService.downloadFaceldiExcel(year, month, []);
   }
 
 }

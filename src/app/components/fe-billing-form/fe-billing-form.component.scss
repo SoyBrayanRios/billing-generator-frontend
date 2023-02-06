@@ -1,8 +1,24 @@
-.wrapper {
-    position: relative;
+.pad-15 {
+    padding-top: 15vh;
+    display: flex;
     align-items: center;
     justify-content: center; 
     width: 100%;
     min-height: 100%;
-    padding-top: 8%;
+  }
+
+  input[type=button] {
+    background-color: #35cc67;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
   }

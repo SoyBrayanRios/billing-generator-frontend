@@ -12,12 +12,18 @@ export class BillingService {
   constructor(private httpClient: HttpClient) { }
 
   generateBills(year: number, month: number, initialInvoice: number): Observable<{response: string}> {
-    const searchUrl = `${this.baseUrl}/generate/${year}/${month}/${initialInvoice}`;
+    const searchUrl = `${this.baseUrl}/generate/${year}/${month}/${initialInvoice}/P`;
     return this.httpClient.get<{response: string}>(searchUrl);
   }
 
-  getFaceldiReport(year: number, month: number): Observable<string[]> {
-    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}`;
+  getTestBills(year: number, month: number, initialInvoice: number): Observable<string[]> {
+    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/${initialInvoice}/S`;
     return this.httpClient.get<string[]>(searchUrl);;
   }
+
+  getFaceldiReport(year: number, month: number): Observable<string[]> {
+    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/P`;
+    return this.httpClient.get<string[]>(searchUrl);;
+  }
+
 }
