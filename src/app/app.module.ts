@@ -23,13 +23,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BranchesWithoutContractComponent } from './components/branches-without-contract/branches-without-contract.component';
 import { RequiredInvoicesComponent } from './components/required-invoices/required-invoices.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContractFormComponent } from './components/contract-form/contract-form.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './common/interceptor/loading.interceptor';
 import { FileDownloadTableComponent } from './components/file-download-table/file-download-table.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {path: 'file-download', component: FileDownloadTableComponent},
@@ -37,7 +37,7 @@ const routes: Routes = [
   {path: 'issued', component: IssuedDocsTableComponent},
   {path: 'fe-bill', component: FeBillingFormComponent},
   {path: 'contract/:id', component: ContractFormComponent},
-  {path: 'home', component: SideBarComponent},
+  {path: 'home', component: DashboardComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/not-found', pathMatch: 'full'}
@@ -55,7 +55,8 @@ const routes: Routes = [
     NotFoundComponent,
     RequiredInvoicesComponent,
     SideBarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    DashboardComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

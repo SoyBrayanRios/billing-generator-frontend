@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BillDetailService } from 'src/app/services/bill-detail.service';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import { BillingService } from 'src/app/services/billing.service';
+import { IconSetService } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-file-download-table',
@@ -12,8 +12,7 @@ export class FileDownloadTableComponent implements OnInit {
 
   faDownload = faDownload;
 
-  constructor(private billDetailService: BillDetailService,
-    private billingService: BillingService) { }
+  constructor(private billDetailService: BillDetailService) { }
 
   details: any = [];
 
@@ -31,6 +30,10 @@ export class FileDownloadTableComponent implements OnInit {
 
   downloadFaceldiExcel(year: number, month: number) {
     this.billDetailService.downloadFaceldiExcel(year, month, []);
+  }
+
+  downloadSmartCsv(year: number, month: number) {
+    //this.billDetailService.downloadFaceldiExcel(year, month, []);
   }
 
 }

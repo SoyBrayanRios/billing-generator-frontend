@@ -11,6 +11,7 @@ export class BillDetailService {
 
   private baseUrl = 'http://localhost:8080/api/bill-detail';
   rows: string[] = [];
+  smartRows: string[] = [];
 
   constructor(private httpClient: HttpClient,
     private billingService: BillingService) { }
@@ -21,7 +22,7 @@ export class BillDetailService {
   }
 
   async downloadFaceldiExcel(year: number, month: number, bills: string[]) {
-    const fileName = `Facturacion_${year}_${month}.xlsx`;
+    const fileName = `Facturacion_${year}_${month}_Faceldi.xlsx`;
     const header = [
       'Fc_Tipo Operación',
       'Fc_Prefijo',
@@ -148,16 +149,70 @@ export class BillDetailService {
         error: err => {
           console.log(err);
         }
-      });  
+      });
     } else {
       bills.forEach(row => {
-        let rowArray = row.split(';');
-        worksheet.addRow(rowArray);
+        let rowArray: any = row.split(';');
+        rowArray[2] =  Number(rowArray[2]);
+        rowArray[56] = Number(rowArray[56]);
+        rowArray[57] = Number(rowArray[57]);
+        rowArray[62] = Number(rowArray[62]);
+        rowArray[63] = Number(rowArray[63]);
+        worksheet.addRow(rowArray);  
       });
       workbook.xlsx.writeBuffer().then((data: any) => {
         const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         fileSaver.saveAs(blob, fileName);
       });
     }
+  }
+
+  async downloadSmartCsv(year: number, month: number, bills: string[]) {
+    const fileName = `Facturacion_${year}_${month}_Smart.csv`;
+    const header = [
+      'AD_Org_ID[Name]',
+      'DocumentNo',
+      'Description',
+      'C_DocTypeTarget_ID[Name]',
+      'DateInvoiced',
+      'DateAcct',
+      'C_BPartner_ID[Value]',
+      'AD_User_ID[Name]',
+      'M_PriceList_ID[Name]',
+      'SalesRep_ID[Name]',
+      'PaymentRule	C_PaymentTerm_ID[Value]',
+      'C_Project_ID[Value]	C_Activity_ID[Value]',
+      'C_InvoiceLine>AD_Org_ID[Name]',
+      'C_InvoiceLine>C_Invoice_ID[DocumentNo]',
+      'C_InvoiceLine>Line',
+      'C_InvoiceLine>M_Product_ID[Value]',
+      'C_InvoiceLine>Description',
+      'C_InvoiceLine>QtyEntered',
+      'C_InvoiceLine>C_UOM_ID[Name]',
+      'C_InvoiceLine>PriceEntered',
+      'C_InvoiceLine>PriceList',
+      'C_InvoiceLine>C_Tax_ID[Name]'
+    ];
+
+    this.billingService.getTestSmartReport().subscribe({
+      next: response => {
+        let content = header + "\n";
+        this.smartRows = response;
+        
+        this.smartRows.forEach(row => {
+          let rowArray: any = row.split(',');
+          content += rowArray +"\n";
+        });
+
+        const data: Blob = new Blob([content], {
+          type: "text/csv;charset=utf-8"
+        });
+
+        fileSaver.saveAs(data, fileName);
+      },
+      error: err => {
+        console.log(err);
+      }
+    });  
   }
 }

@@ -5,7 +5,7 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/not-found',
     href: '/not-found',
-    iconComponent: { name: 'cibMacys' }
+    iconComponent:  { name: 'cil-speedometer' }
   },
   {
     title: true,
@@ -15,13 +15,13 @@ export const navItems: INavData[] = [
     name: 'Factura Electrónica',
     url: '/fe-bill',
     href: '/fe-bill',
-    iconComponent: { name: 'cib-eventbrite' }
+    iconComponent: { name: 'cil-shield-alt' }
   },
   {
     name: 'Documento Soporte',
     url: '/not-found',
     href: '/not-found',
-    iconComponent: { name: 'cib-disqus' },
+    iconComponent: { name: 'cil-briefcase' },
     badge: {
       text: 'SOON',
       color: 'warning'
@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
     name: 'Nómina Electrónica',
     url: '/not-found',
     href: '/not-found',
-    iconComponent: { name: 'cib-nginx' },
+    iconComponent: { name: 'cil-newspaper' },
     badge: {
       text: 'SOON',
       color: 'warning'
@@ -45,7 +45,7 @@ export const navItems: INavData[] = [
     name: 'Emitidos por Sucursal',
     url: '/issued',
     href: '/issued',
-    iconComponent: { name: 'cilListNumbered' }
+    iconComponent: { name: 'cil-list' }
   },
   {
     title: true,
@@ -55,13 +55,13 @@ export const navItems: INavData[] = [
     name: 'Contratos',
     url: '/no-contract',
     href: '/no-contract',
-    iconComponent: { name: 'cib-buffer' }
+    iconComponent: { name: 'cil-library-add' }
   },
   {
     name: 'Planes de Pago',
     url: '/not-found',
     href: '/not-found',
-    iconComponent: { name: 'cib-hackhands' }
+    iconComponent: { name: 'cil-money' }
   },
   {
     title: true,

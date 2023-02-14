@@ -26,4 +26,14 @@ export class BillingService {
     return this.httpClient.get<string[]>(searchUrl);;
   }
 
+  getTestSmartReport(): Observable<any> {
+    const searchUrl = `${this.baseUrl}/fe-smart`;
+    return this.httpClient.get(searchUrl);
+  }
+
+  getSmartReport(year: number, month: number): Observable<any> {
+    const searchUrl = `${this.baseUrl}/fe-smart/${year}/${month}/P`;
+    return this.httpClient.get(searchUrl);
+  }
+
 }

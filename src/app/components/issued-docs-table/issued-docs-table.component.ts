@@ -6,6 +6,8 @@ import * as XLSX from 'xlsx';
 
 import { InvoiceResumeService } from 'src/app/services/invoice-resume.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IconSetService } from '@coreui/icons-angular';
+import { brandSet, freeSet } from '@coreui/icons';
 
 @Component({
   selector: 'app-issued-docs-table',

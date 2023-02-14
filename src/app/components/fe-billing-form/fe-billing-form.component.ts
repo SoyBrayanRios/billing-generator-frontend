@@ -56,23 +56,35 @@ export class FeBillingFormComponent implements OnInit {
     let month = this.billingFormGroup.get('month')?.value;
     let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
     
-    this.billingService.generateBills(year, month, initialInvoice).subscribe({
-      next: response => {
-        console.log('Response: ', response);
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: response.response,
-          showConfirmButton: true,
-          willClose: () => { this.router.navigateByUrl('/file-download') }
-        });
-      },
-      error: err => {
-        console.log('Err: ', err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Hubo un error al generar la facturación del mes!',
+    Swal.fire({
+      title: '¿Deseas continuar con el procedimiento?',
+      text: "Ten en cuenta que no será posible revertir los cambios",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, continuar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.billingService.generateBills(year, month, initialInvoice).subscribe({
+          next: response => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: response.response,
+              showConfirmButton: true,
+              willClose: () => { this.router.navigateByUrl('/file-download') }
+            });
+          },
+          error: err => {
+            console.log('Err: ', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un error al generar la facturación del mes!',
+            });
+          }
         });
       }
     });
@@ -83,9 +95,40 @@ export class FeBillingFormComponent implements OnInit {
     let month = this.billingFormGroup.get('month')?.value;
     let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
     
-    this.billingService.getTestBills(year, month, initialInvoice).subscribe(
-      data => {
-        this.billDetailService.downloadFaceldiExcel(year, month, data);
-      });
+    Swal.fire({
+      title: '¿Deseas continuar con el procedimiento?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, continuar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {  
+        this.billingService.getTestBills(year, month, initialInvoice).subscribe({
+          next: response => {
+            this.billDetailService.downloadFaceldiExcel(year, month, response);
+            this.billingService.getSmartReport(year, month).subscribe(
+              data => {
+                this.billDetailService.downloadSmartCsv(year, month, data);
+              });
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Se generó la facturación de prueba con éxito.',
+              showConfirmButton: true,
+            });
+          },
+          error: err => {
+            console.log('Err: ', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Hubo un error al generar la facturación del mes!',
+            });
+          }
+        });
+      }
+    });
   }
 }

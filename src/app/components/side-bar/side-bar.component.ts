@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { navItems } from '../_nav';
 
+
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
@@ -14,10 +15,9 @@ export class SideBarComponent implements OnInit {
     suppressScrollX: true,
   };
 
-  constructor() {
-   }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-}
+} 
