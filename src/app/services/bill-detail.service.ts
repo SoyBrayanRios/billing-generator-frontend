@@ -167,8 +167,9 @@ export class BillDetailService {
     }
   }
 
-  async downloadSmartCsv(year: number, month: number, bills: string[]) {
-    const fileName = `Facturacion_${year}_${month}_Smart.csv`;
+  async downloadSmartCsv(year: number, month: number, env: string) {
+    const fileName13 = `Facturacion_${year}_${month}_Smart_13.csv`;
+    const fileName31 = `Facturacion_${year}_${month}_Smart_31.csv`;
     const header = [
       'AD_Org_ID[Name]',
       'DocumentNo',
@@ -180,8 +181,10 @@ export class BillDetailService {
       'AD_User_ID[Name]',
       'M_PriceList_ID[Name]',
       'SalesRep_ID[Name]',
-      'PaymentRule	C_PaymentTerm_ID[Value]',
-      'C_Project_ID[Value]	C_Activity_ID[Value]',
+      'PaymentRule',
+      'C_PaymentTerm_ID[Value]',
+      'C_Project_ID[Value]',
+      'C_Activity_ID[Value]',
       'C_InvoiceLine>AD_Org_ID[Name]',
       'C_InvoiceLine>C_Invoice_ID[DocumentNo]',
       'C_InvoiceLine>Line',
@@ -194,21 +197,33 @@ export class BillDetailService {
       'C_InvoiceLine>C_Tax_ID[Name]'
     ];
 
-    this.billingService.getTestSmartReport().subscribe({
+    this.billingService.getSmartReport(year, month, env).subscribe({
       next: response => {
-        let content = header + "\n";
+        let content13 = header + "\n";
+        let content31 = header + "\n";
         this.smartRows = response;
         
         this.smartRows.forEach(row => {
-          let rowArray: any = row.split(',');
-          content += rowArray +"\n";
+          let rowArray: any[] = row.split(',');
+          if (rowArray[rowArray.length - 1] == 13) {
+            rowArray.pop();
+            content13 += rowArray +"\n";  
+          } else {
+            rowArray.pop();
+            content31 += rowArray +"\n";  
+          } 
         });
 
-        const data: Blob = new Blob([content], {
+        const data13: Blob = new Blob([content13], {
           type: "text/csv;charset=utf-8"
         });
 
-        fileSaver.saveAs(data, fileName);
+        const data31: Blob = new Blob([content31], {
+          type: "text/csv;charset=utf-8"
+        });
+
+        fileSaver.saveAs(data13, fileName13);
+        fileSaver.saveAs(data31, fileName31);
       },
       error: err => {
         console.log(err);

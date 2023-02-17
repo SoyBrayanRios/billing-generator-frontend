@@ -33,7 +33,7 @@ export class FileDownloadTableComponent implements OnInit {
   }
 
   downloadSmartCsv(year: number, month: number) {
-    //this.billDetailService.downloadFaceldiExcel(year, month, []);
+    this.billDetailService.downloadSmartCsv(year, month, 'P');
   }
 
 }

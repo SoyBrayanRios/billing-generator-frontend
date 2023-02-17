@@ -26,13 +26,13 @@ export class BillingService {
     return this.httpClient.get<string[]>(searchUrl);;
   }
 
-  getTestSmartReport(): Observable<any> {
+  /*getTestSmartReport(): Observable<any> {
     const searchUrl = `${this.baseUrl}/fe-smart`;
     return this.httpClient.get(searchUrl);
-  }
+  }*/
 
-  getSmartReport(year: number, month: number): Observable<any> {
-    const searchUrl = `${this.baseUrl}/fe-smart/${year}/${month}/P`;
+  getSmartReport(year: number, month: number, env: string): Observable<any> {
+    const searchUrl = `${this.baseUrl}/fe-smart/${year}/${month}/${env}`;
     return this.httpClient.get(searchUrl);
   }
 
