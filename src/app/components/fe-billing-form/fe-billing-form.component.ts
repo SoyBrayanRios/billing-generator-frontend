@@ -108,10 +108,7 @@ export class FeBillingFormComponent implements OnInit {
         this.billingService.getTestBills(year, month, initialInvoice).subscribe({
           next: response => {
             this.billDetailService.downloadFaceldiExcel(year, month, response);
-            this.billingService.getSmartReport(year, month).subscribe(
-              data => {
-                this.billDetailService.downloadSmartCsv(year, month, data);
-              });
+            this.billDetailService.downloadSmartCsv(year, month, 'S');
             Swal.fire({
               position: 'center',
               icon: 'success',
