@@ -14,13 +14,13 @@ export class InvoiceResumeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getInvoiceResume(): Observable<InvoiceResume[]> {
-    const searchUrl = `${this.baseUrl}/all`;
+  getInvoiceResume(module: string): Observable<InvoiceResume[]> {
+    const searchUrl = `${this.baseUrl}/all/${module}`;
     return this.httpClient.get<InvoiceResume[]>(searchUrl);
   }
 
-  getInvoiceResumeTable(year: number): Observable<string[]> {
-    const searchUrl = `${this.baseUrl}/data-table/${year}`;
+  getInvoiceResumeTable(year: number, module: string): Observable<string[]> {
+    const searchUrl = `${this.baseUrl}/data-table/${year}/FE`;
     return this.httpClient.get<string[]>(searchUrl);
   }
 

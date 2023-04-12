@@ -19,10 +19,10 @@
           <td>{{detail.initialInvoice}}</td>
           <td>{{detail.finalInvoice}}</td>
           <td>
-              <a class="btn-link" (click)="downloadFaceldiExcel(detail.year, detail.month)"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
+              <a class="btn-link" (click)="downloadFaceldiExcel(detail.year, detail.month, 'FE')"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
           </td>
           <td>
-            <a class="btn-link" (click)="downloadSmartCsv(detail.year, detail.month)"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
+            <a class="btn-link" (click)="downloadSmartCsv(detail.year, detail.month, 'FE')"><fa-icon [icon]="faDownload" size="xl"></fa-icon></a>
         </td>
         </tr>
       </tbody>

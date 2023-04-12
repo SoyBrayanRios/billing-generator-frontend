@@ -2,8 +2,13 @@
   <c-card id="formContent"[formGroup]="billingFormGroup">
     <c-card-body>
       <h2 cCardTitle class="active">Datos requeridos</h2>
-        <div cForm class="form row g-3">
-          <br>
+        <div cForm class="form row g-3" style="padding-top: 1vh;">
+          <c-col [lg]="12" [md]="12">
+            <label>Servicio</label>
+            <select cFormControl formControlName="service" cSelect (change)="updateYear($event)">
+              <option *ngFor="let service of services" [value]="service.value">{{service.name}}</option>
+            </select>
+          </c-col>
           <c-col [lg]="4" [md]="12">
             <label>Año</label>
             <select cFormControl formControlName="year" cSelect (change)="updateYear($event)">

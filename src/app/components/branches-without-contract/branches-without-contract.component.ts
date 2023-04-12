@@ -13,18 +13,19 @@ export class BranchesWithoutContractComponent implements OnInit {
 
   faFolderPlus = faFolderPlus;
   branches: Branch[] = [];
+  i = 0;
 
   constructor(private branchService: BranchService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
-      this.getBranchesToUpdate();
+      this.getBranchesToUpdate('FE');
     });
   }
 
-  getBranchesToUpdate() {
-    this.branchService.getBranchesWithoutContract().subscribe(
+  getBranchesToUpdate(module: string) {
+    this.branchService.getBranchesWithoutContract(module).subscribe(
       this.processResumeResult());
   }
 

@@ -28,17 +28,18 @@ export class IssuedDocsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.reportFormGroup = this.formBuilder.group({
-      year: [2023]
+      year: [2023],
+      module: ['FE']
     });
 
     this.route.paramMap.subscribe(() => {
-      this.listResumes(2023);
+      this.listResumes(2023, 'FE');
     });
   }
 
-  listResumes(year: number) {
+  listResumes(year: number, appModule: string) {
     this.name = `Reporte_Emitidos_${year}.xlsx`;
-    this.invoiceResumeService.getInvoiceResumeTable(year).subscribe(
+    this.invoiceResumeService.getInvoiceResumeTable(year, appModule).subscribe(
       this.processResumeResult());
   }
 
@@ -60,7 +61,7 @@ export class IssuedDocsTableComponent implements OnInit {
 
   updateReport() {
     this.selectedYear = this.reportFormGroup.get('year')?.value;
-    this.listResumes(this.selectedYear);
+    this.listResumes(this.selectedYear, 'FE');
   }
 
   updateYear(event: any) {

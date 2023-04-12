@@ -12,11 +12,11 @@ export class FeBillingFormService {
   branchesWithoutContract: Branch[] = [];
   requiredInvoices: Subject<number> = new BehaviorSubject<number>(0);
 
-  constructor(private invoiceResumeService: InvoiceResumeService,
-    private branchService: BranchService) { }
+  constructor(private branchService: BranchService) { 
+  }
 
-  getBranchesWithoutContract() {
-    this.branchService.getBranchesWithoutContract().subscribe(
+  getBranchesWithoutContract(module: string) {
+    this.branchService.getBranchesWithoutContract(module).subscribe(
       data => this.branchesWithoutContract = data
     );
   }

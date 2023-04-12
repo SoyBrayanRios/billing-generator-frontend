@@ -22,8 +22,8 @@ export class BranchService {
     return this.httpClient.get<Branch>(searchUrl);
   }
 
-  getBranchesWithoutContract() {
-    const searchUrl = `${this.baseUrl}/to-update`;
+  getBranchesWithoutContract(module: string) {
+    const searchUrl = `${this.baseUrl}/to-update/${module}`;
     return this.httpClient.get<Branch[]>(searchUrl);
   }
 }

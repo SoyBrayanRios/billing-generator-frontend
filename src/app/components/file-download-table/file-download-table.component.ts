@@ -28,12 +28,12 @@ export class FileDownloadTableComponent implements OnInit {
     );
   }
 
-  downloadFaceldiExcel(year: number, month: number) {
-    this.billDetailService.downloadFaceldiExcel(year, month, []);
+  downloadFaceldiExcel(year: number, month: number, module: string) {
+    this.billDetailService.downloadFaceldiExcel(year, month, [], module);
   }
 
-  downloadSmartCsv(year: number, month: number) {
-    this.billDetailService.downloadSmartCsv(year, month, 'P');
+  downloadSmartCsv(year: number, month: number, module: string) {
+    this.billDetailService.downloadSmartCsv(year, month, 'P', module);
   }
 
 }

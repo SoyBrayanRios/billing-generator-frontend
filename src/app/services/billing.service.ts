@@ -11,19 +11,19 @@ export class BillingService {
 
   constructor(private httpClient: HttpClient) { }
 
-  generateBills(year: number, month: number, initialInvoice: number): Observable<{response: string}> {
-    const searchUrl = `${this.baseUrl}/generate/${year}/${month}/${initialInvoice}/P`;
+  generateBills(year: number, month: number, initialInvoice: number, module: string): Observable<{response: string}> {
+    const searchUrl = `${this.baseUrl}/generate/${year}/${month}/${initialInvoice}/P/${module}`;
     return this.httpClient.get<{response: string}>(searchUrl);
   }
 
-  getTestBills(year: number, month: number, initialInvoice: number): Observable<string[]> {
-    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/${initialInvoice}/S`;
-    return this.httpClient.get<string[]>(searchUrl);;
+  getTestBills(year: number, month: number, initialInvoice: number, module: string): Observable<string[]> {
+    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/${initialInvoice}/S/${module}`;
+    return this.httpClient.get<string[]>(searchUrl);
   }
 
-  getFaceldiReport(year: number, month: number): Observable<string[]> {
-    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/P`;
-    return this.httpClient.get<string[]>(searchUrl);;
+  getFaceldiReport(year: number, month: number, module: string): Observable<string[]> {
+    const searchUrl = `${this.baseUrl}/fe-faceldi/${year}/${month}/P/${module}`;
+    return this.httpClient.get<string[]>(searchUrl);
   }
 
   /*getTestSmartReport(): Observable<any> {
@@ -31,8 +31,8 @@ export class BillingService {
     return this.httpClient.get(searchUrl);
   }*/
 
-  getSmartReport(year: number, month: number, env: string): Observable<any> {
-    const searchUrl = `${this.baseUrl}/fe-smart/${year}/${month}/${env}`;
+  getSmartReport(year: number, month: number, env: string, module: string): Observable<any> {
+    const searchUrl = `${this.baseUrl}/fe-smart/${year}/${month}/${env}/${module}`;
     return this.httpClient.get(searchUrl);
   }
 

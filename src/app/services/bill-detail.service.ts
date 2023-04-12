@@ -21,8 +21,8 @@ export class BillDetailService {
     return this.httpClient.get<any>(searchUrl);
   }
 
-  async downloadFaceldiExcel(year: number, month: number, bills: string[]) {
-    const fileName = `Facturacion_${year}_${month}_Faceldi.xlsx`;
+  async downloadFaceldiExcel(year: number, month: number, bills: string[], module: string) {
+    const fileName = `Facturacion_${year}_${month}_${module}_Faceldi.xlsx`;
     const header = [
       'Fc_Tipo Operación',
       'Fc_Prefijo',
@@ -129,7 +129,7 @@ export class BillDetailService {
     worksheet.addRow(header);
 
     if (bills == null || bills.length == 0) {
-      this.billingService.getFaceldiReport(year, month).subscribe({
+      this.billingService.getFaceldiReport(year, month, module).subscribe({
         next: response => {
           this.rows = response
           this.rows.forEach(row => {
@@ -167,9 +167,9 @@ export class BillDetailService {
     }
   }
 
-  async downloadSmartCsv(year: number, month: number, env: string) {
-    const fileName13 = `Facturacion_${year}_${month}_Smart_13.csv`;
-    const fileName31 = `Facturacion_${year}_${month}_Smart_31.csv`;
+  async downloadSmartCsv(year: number, month: number, env: string, module: string) {
+    const fileName13 = `Facturacion_${year}_${month}_${module}_Smart_13.csv`;
+    const fileName31 = `Facturacion_${year}_${month}_${module}_Smart_31.csv`;
     const header = [
       'AD_Org_ID[Name]',
       'DocumentNo',
@@ -197,7 +197,7 @@ export class BillDetailService {
       'C_InvoiceLine>C_Tax_ID[Name]'
     ];
 
-    this.billingService.getSmartReport(year, month, env).subscribe({
+    this.billingService.getSmartReport(year, month, env, module).subscribe({
       next: response => {
         let content13 = header + "\n";
         let content31 = header + "\n";
@@ -207,9 +207,11 @@ export class BillDetailService {
           let rowArray: any[] = row.split(',');
           if (rowArray[rowArray.length - 1] == 13) {
             rowArray.pop();
+            this.wipeLine(rowArray);
             content13 += rowArray +"\n";  
           } else {
             rowArray.pop();
+            this.wipeLine(rowArray);
             content31 += rowArray +"\n";  
           } 
         });
@@ -229,5 +231,19 @@ export class BillDetailService {
         console.log(err);
       }
     });  
+  }
+
+  wipeLine(line : any[]): any[] {
+    let toDelete = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15];
+
+    if (line[16] > 1) {
+      for (let i = 0; i < line.length; i++) {
+        if (toDelete.includes(i)) {
+          line[i] = '';
+        }
+      } 
+    }
+    
+    return line;
   }
 }

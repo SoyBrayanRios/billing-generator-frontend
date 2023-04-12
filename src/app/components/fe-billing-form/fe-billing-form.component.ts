@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 export class FeBillingFormComponent implements OnInit {
 
   billingFormGroup!: FormGroup;
+  services: any[] = [{name: 'Facturación Electrónica', value:'FE'},
+                        {name: 'Nómina Electrónica', value:'NE'},
+                        {name: 'Documento Soporte', value:'DS'}];
   years: any[] = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028];
   months: any[] = [{name: 'Enero', index: 1},
                   {name: 'Febrero', index: 2},
@@ -26,6 +29,7 @@ export class FeBillingFormComponent implements OnInit {
                   {name: 'Octubre', index: 10},
                   {name: 'Noviembre', index: 11},
                   {name: 'Diciembre', index: 12}];
+  selectedService: string = this.services[0];
   selectedYear: number = this.years[0];
   selectedMonth: number = this.months[0]['index'];
   initialInvoice: number = 2674;
@@ -37,6 +41,7 @@ export class FeBillingFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.billingFormGroup = this.formBuilder.group({
+      service: this.services[0].value,
       year: [2019],
       month: [1],
       initialInvoice: [0]
@@ -51,7 +56,12 @@ export class FeBillingFormComponent implements OnInit {
     this.selectedMonth = event.target.value;
   }
 
+  updateService(event: any) {
+    this.selectedService = event.target.value;
+  }
+
   generateBills() {
+    let service = this.billingFormGroup.get('service')?.value;
     let year = this.billingFormGroup.get('year')?.value;
     let month = this.billingFormGroup.get('month')?.value;
     let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
@@ -67,7 +77,7 @@ export class FeBillingFormComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.billingService.generateBills(year, month, initialInvoice).subscribe({
+        this.billingService.generateBills(year, month, initialInvoice, service).subscribe({
           next: response => {
             Swal.fire({
               position: 'center',
@@ -91,6 +101,7 @@ export class FeBillingFormComponent implements OnInit {
   }
 
   generateTestBills() {
+    let service = this.billingFormGroup.get('service')?.value;
     let year = this.billingFormGroup.get('year')?.value;
     let month = this.billingFormGroup.get('month')?.value;
     let initialInvoice = this.billingFormGroup.get('initialInvoice')?.value;
@@ -105,10 +116,10 @@ export class FeBillingFormComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {  
-        this.billingService.getTestBills(year, month, initialInvoice).subscribe({
+        this.billingService.getTestBills(year, month, initialInvoice, service).subscribe({
           next: response => {
-            this.billDetailService.downloadFaceldiExcel(year, month, response);
-            this.billDetailService.downloadSmartCsv(year, month, 'S');
+            this.billDetailService.downloadFaceldiExcel(year, month, response, service);
+            this.billDetailService.downloadSmartCsv(year, month, 'S', service);
             Swal.fire({
               position: 'center',
               icon: 'success',
