@@ -3,12 +3,14 @@ import { Branch } from "./branch";
 
 export class Client {
     nit: string;
-    dv: string;
+    idType: number;
+    personType: number;
+    regimeType: number;
     name: string;
-    firstName: string;
-    middleName: string;
     lastName: string;
     lastName2: string;
+    firstName: string;
+    middleName: string;
     department: number;
     state: number;
     address: number;
@@ -16,15 +18,18 @@ export class Client {
     email: string;
     equivalentDoc: boolean;
     alliance: Alliance;
+    dv: string;
     branches: Branch[];
 
     constructor(nit: string,
-        dv: string,
+        idType: number,
+        personType: number,
+        regimeType: number,
         name: string,
-        firstName: string,
-        middleName: string,
         lastName: string,
         lastName2: string,
+        firstName: string,
+        middleName: string,
         department: number,
         state: number,
         address: number,
@@ -32,8 +37,12 @@ export class Client {
         email: string,
         equivalentDoc: boolean,
         alliance: Alliance,
+        dv: string,
         branches: Branch[]) {
             this.nit = nit;
+            this.idType = idType;
+            this.personType = personType;
+            this.regimeType = regimeType;
             this.dv = dv;
             this.name = name;
             this.firstName = firstName;

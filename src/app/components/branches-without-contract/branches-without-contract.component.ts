@@ -32,6 +32,8 @@ export class BranchesWithoutContractComponent implements OnInit {
   processResumeResult() {
     return (data: any) => {
       this.branches = data;
+      console.log(data);
+      
     }
   }
 

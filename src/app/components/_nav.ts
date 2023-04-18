@@ -5,37 +5,21 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/not-found',
     href: '/not-found',
-    iconComponent:  { name: 'cil-speedometer' }
+    iconComponent:  { name: 'cil-speedometer' },
+    badge: {
+      text: 'SOON',
+      color: 'warning'
+    }
   },
   {
     title: true,
     name: 'Generar facturación'
   },
   {
-    name: 'Factura Electrónica',
+    name: 'Servicios Faceldi',
     url: '/fe-bill',
     href: '/fe-bill',
-    iconComponent: { name: 'cil-shield-alt' }
-  },
-  {
-    name: 'Documento Soporte',
-    url: '/not-found',
-    href: '/not-found',
-    iconComponent: { name: 'cil-briefcase' },
-    badge: {
-      text: 'SOON',
-      color: 'warning'
-    }
-  },
-  {
-    name: 'Nómina Electrónica',
-    url: '/not-found',
-    href: '/not-found',
-    iconComponent: { name: 'cil-newspaper' },
-    badge: {
-      text: 'SOON',
-      color: 'warning'
-    }
+    iconComponent: { name: 'cil-wallet' }
   },
   {
     title: true,
@@ -45,7 +29,7 @@ export const navItems: INavData[] = [
     name: 'Emitidos por Sucursal',
     url: '/issued',
     href: '/issued',
-    iconComponent: { name: 'cil-list' }
+    iconComponent: { name: 'cil-chart-line' }
   },
   {
     title: true,
@@ -53,15 +37,29 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Contratos',
-    url: '/no-contract',
-    href: '/no-contract',
-    iconComponent: { name: 'cil-library-add' }
+    url: '/not-found',
+    href: '/not-found',
+    iconComponent: { name: 'cil-warning' }
+  },
+  {
+    name: 'Cancelaciones',
+    url: '/not-found',
+    href: '/not-found',
+    iconComponent: { name: 'cil-ban' },
+    badge: {
+      text: 'SOON',
+      color: 'warning'
+    }
   },
   {
     name: 'Planes de Pago',
     url: '/not-found',
     href: '/not-found',
-    iconComponent: { name: 'cil-money' }
+    iconComponent: { name: 'cil-credit-card' },
+    badge: {
+      text: 'SOON',
+      color: 'warning'
+    }
   },
   {
     title: true,
@@ -71,6 +69,26 @@ export const navItems: INavData[] = [
     name: 'Factura Electrónica',
     url: '/file-download',
     href: '/file-download',
-    iconComponent: { name: 'cib-docusign' }
+    iconComponent: { name: 'cil-at' }
+  },
+  {
+    name: 'Nómina Electrónica',
+    url: '/not-found',
+    href: '/not-found',
+    iconComponent: { name: 'cil-running' },
+    badge: {
+      text: 'SOON',
+      color: 'warning'
+    }
+  },
+  {
+    name: 'Documento Soporte',
+    url: '/not-found',
+    href: '/not-found',
+    iconComponent: { name: 'cil-qr-code' },
+    badge: {
+      text: 'SOON',
+      color: 'warning'
+    }
   },
 ];

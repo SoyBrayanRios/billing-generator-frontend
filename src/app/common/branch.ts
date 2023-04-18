@@ -14,8 +14,11 @@ export class Branch {
     addressComp: string;
     phone: string;
     email: string;
-    client: Client;
     active!: boolean;
+    client: Client;
+    fe!: boolean;
+    ds!: boolean;
+    ne!: boolean;
     constructor(branchId: number,
         code: string,
         name: string,
@@ -29,8 +32,11 @@ export class Branch {
         addressComp: string,
         phone: string,
         email: string,
+        active: boolean,
         client: Client,
-        active: boolean) {
+        fe: boolean,
+        ds: boolean,
+        ne: boolean) {
             this.branchId = branchId;
             this.code = code;
             this.name = name;
@@ -46,5 +52,8 @@ export class Branch {
             this.email = email;
             this.client = client;
             this.active = active;
+            this.fe = fe;
+            this.ds = ds;
+            this.ne = ne;
     }
 }

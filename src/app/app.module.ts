@@ -30,14 +30,17 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './common/interceptor/loading.interceptor';
 import { FileDownloadTableComponent } from './components/file-download-table/file-download-table.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+  {path: 'login', component: LoginComponent},
   {path: 'file-download', component: FileDownloadTableComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'no-contract', component: BranchesWithoutContractComponent},
   {path: 'issued', component: IssuedDocsTableComponent},
   {path: 'fe-bill', component: FeBillingFormComponent},
   {path: 'contract/:id', component: ContractFormComponent},
-  {path: 'home', component: DashboardComponent},
+  {path: 'home', component: SideBarComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/not-found', pathMatch: 'full'}
@@ -56,7 +59,8 @@ const routes: Routes = [
     RequiredInvoicesComponent,
     SideBarComponent,
     SpinnerComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
