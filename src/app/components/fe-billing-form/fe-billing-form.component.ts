@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BillDetailService } from 'src/app/services/bill-detail.service';
 import { BillingService } from 'src/app/services/billing.service';
+import { GlobalComponent } from 'src/app/global-component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,26 +14,13 @@ import Swal from 'sweetalert2';
 export class FeBillingFormComponent implements OnInit {
 
   billingFormGroup!: FormGroup;
-  services: any[] = [{name: 'Facturación Electrónica', value:'FE'},
-                        {name: 'Nómina Electrónica', value:'NE'},
-                        {name: 'Documento Soporte', value:'DS'}];
-  years: any[] = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028];
-  months: any[] = [{name: 'Enero', index: 1},
-                  {name: 'Febrero', index: 2},
-                  {name: 'Marzo', index: 3},
-                  {name: 'Abril', index: 4},
-                  {name: 'Mayo', index: 5},
-                  {name: 'Junio', index: 6},
-                  {name: 'Julio', index: 7},
-                  {name: 'Agosto', index: 8},
-                  {name: 'Septiembre', index: 9},
-                  {name: 'Octubre', index: 10},
-                  {name: 'Noviembre', index: 11},
-                  {name: 'Diciembre', index: 12}];
+  services: any[] =  GlobalComponent.services;
+  years: any[] =  GlobalComponent.years;
+  months: any[] =  GlobalComponent.months;
   selectedService: string = this.services[0];
   selectedYear: number = this.years[0];
   selectedMonth: number = this.months[0]['index'];
-  initialInvoice: number = 2674;
+  initialInvoice: number = 0;
 
   constructor(private billingService: BillingService,
     private formBuilder: FormBuilder,

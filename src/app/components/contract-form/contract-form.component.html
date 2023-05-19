@@ -11,7 +11,7 @@
           </c-col>
           <c-col [xs]="6">
             <label>Nombre Cliente</label>
-            <input cFormControl id="client-name" type="text" value="{{branch.client.name}}" disabled/>
+            <input cFormControl id="client-name" type="text" value="{{branch.client.razonSocial}}" disabled/>
           </c-col>
           <c-col [xs]="12">
             <label>ID - Nombre sucursal</label>
@@ -20,14 +20,20 @@
           <c-col [xs]="12"></c-col>
           <div formGroupName="tempContract" class="form row g-3">
             <h2 class="active">Datos del contrato</h2>
-            <c-col [xs]="6">
+            <c-col [xs]="4">
+              <label>Tipo de Contrato</label>
+              <select cSelect formControlName="module">
+                <option *ngFor="let service of services" [value]="service.value">{{service.name}}</option>
+              </select>
+            </c-col>
+            <c-col [xs]="4">
               <label>¿Tiene contrato compartido?</label>
               <select cSelect formControlName="sharedContract">
                 <option [value]=true>Si</option>
                 <option [value]=false>No</option>
               </select>
             </c-col>
-            <c-col [xs]="6">
+            <c-col [xs]="4">
               <label># Contrato compartido</label>
               <input cFormControl formControlName="sharedContractId" type="text" placeholder="Sólo si aplica" value="" required/>
             </c-col>

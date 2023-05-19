@@ -37,8 +37,8 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Contratos',
-    url: '/not-found',
-    href: '/not-found',
+    url: '/no-contract',
+    href: '/no-contract',
     iconComponent: { name: 'cil-warning' }
   },
   {

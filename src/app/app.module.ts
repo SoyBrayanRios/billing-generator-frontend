@@ -26,6 +26,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContractFormComponent } from './components/contract-form/contract-form.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoadingInterceptor } from './common/interceptor/loading.interceptor';
 import { FileDownloadTableComponent } from './components/file-download-table/file-download-table.component';
@@ -83,7 +84,8 @@ const routes: Routes = [
     NoopAnimationsModule,
     MatRadioModule,
     MatNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true

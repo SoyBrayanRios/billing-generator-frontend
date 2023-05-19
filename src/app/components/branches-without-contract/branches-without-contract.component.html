@@ -1,6 +1,19 @@
 <div class="">
     <div class="alert alert-warning col-md-12" role="alert">
       Por favor relacione los datos de los contratos faltantes en la siguiente tabla.</div>
+      <!--<div>
+        <input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+        <div class="file-upload">
+          {{fileName || "No file uploaded yet."}}
+
+            <button mat-mini-fab color="primary" class="upload-btn"
+              (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button>
+        </div>
+      </div>-->
     <table cTable [responsive]="true" responsive="sm">
       <thead cTableColor="dark">
         <tr>
@@ -16,7 +29,7 @@
         <tr *ngFor="let branch of branches">
           <td>{{branches.indexOf(branch) + 1}}</td>
           <td>{{branch.client.nit}}</td>
-          <td>{{branch.client.name}}</td>
+          <td>{{branch.client.razonSocial}}</td>
           <td>{{branch.branchId}}</td>
           <td>{{branch.name}}</td>
           <td align="center">

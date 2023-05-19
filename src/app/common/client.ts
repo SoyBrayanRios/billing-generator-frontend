@@ -3,58 +3,58 @@ import { Branch } from "./branch";
 
 export class Client {
     nit: string;
-    idType: number;
-    personType: number;
-    regimeType: number;
-    name: string;
-    lastName: string;
-    lastName2: string;
-    firstName: string;
-    middleName: string;
-    department: number;
-    state: number;
-    address: number;
-    zipCode: string;
-    email: string;
-    equivalentDoc: boolean;
+    tipoIdentificacion: number;
+    tipoPersona: number;
+    tipoRegimen: number;
+    razonSocial: string;
+    primerApellido: string;
+    segundoApellido: string;
+    primerNombre: string;
+    segundoNombre: string;
+    departamento: number;
+    municipio: number;
+    direccion: number;
+    zonaPostal: string;
+    correoElectronico: string;
+    documentoEquivalente: boolean;
     alliance: Alliance;
     dv: string;
     branches: Branch[];
 
     constructor(nit: string,
-        idType: number,
-        personType: number,
-        regimeType: number,
-        name: string,
-        lastName: string,
-        lastName2: string,
-        firstName: string,
-        middleName: string,
-        department: number,
-        state: number,
-        address: number,
-        zipCode: string,
-        email: string,
-        equivalentDoc: boolean,
+        tipoIdentificacion: number,
+        tipoPersona: number,
+        tipoRegimen: number,
+        razonSocial: string,
+        primerApellido: string,
+        segundoApellido: string,
+        primerNombre: string,
+        segundoNombre: string,
+        departamento: number,
+        municipio: number,
+        direccion: number,
+        zonaPostal: string,
+        correoElectronico: string,
+        documentoEquivalente: boolean,
         alliance: Alliance,
         dv: string,
         branches: Branch[]) {
             this.nit = nit;
-            this.idType = idType;
-            this.personType = personType;
-            this.regimeType = regimeType;
+            this.tipoIdentificacion = tipoIdentificacion;
+            this.tipoPersona = tipoPersona;
+            this.tipoRegimen = tipoRegimen;
             this.dv = dv;
-            this.name = name;
-            this.firstName = firstName;
-            this.middleName = middleName;
-            this.lastName = lastName;
-            this.lastName2 = lastName2;
-            this.department = department;
-            this.state = state;
-            this.address = address;
-            this.zipCode = zipCode;
-            this.email = email;
-            this.equivalentDoc = equivalentDoc;
+            this.razonSocial = razonSocial;
+            this.primerNombre = primerNombre;
+            this.segundoNombre = segundoNombre;
+            this.primerApellido = primerApellido;
+            this.segundoApellido = segundoApellido;
+            this.departamento = departamento;
+            this.municipio = municipio;
+            this.direccion = direccion;
+            this.zonaPostal = zonaPostal;
+            this.correoElectronico = correoElectronico;
+            this.documentoEquivalente = documentoEquivalente;
             this.alliance = alliance;
             this.branches = branches;
     }

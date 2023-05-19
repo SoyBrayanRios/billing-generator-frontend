@@ -11,7 +11,8 @@ import { ContractService } from 'src/app/services/contract.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { GlobalComponent } from 'src/app/global-component';
 
 @Component({
   selector: 'app-contract-form',
@@ -25,16 +26,8 @@ export class ContractFormComponent implements OnInit {
   contract!: Contract;
   paymentTypeId: number = 1;
   firstIssuedDate!: Date;
-  frequencies: Frequency[] = [
-    {frequencyId: 1, frequencyName: "Diario"},
-    {frequencyId: 2, frequencyName: "Semanal"},
-    {frequencyId: 3, frequencyName: "Quincenal"},
-    {frequencyId: 4, frequencyName: "Mensual"},
-    {frequencyId: 5, frequencyName: "Bimestral"},
-    {frequencyId: 6, frequencyName: "Trimestral"},
-    {frequencyId: 7, frequencyName: "Semestral"},
-    {frequencyId: 8, frequencyName: "Anual"}
-  ];
+  services: any[] = GlobalComponent.services;
+  frequencies: Frequency[] = GlobalComponent.frequencies;
   documentPackages: any = [
     {id: 1, name: "Fantasía", docQuantity: 5, price: 15000, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
     {id: 2, name: "Bronce", docQuantity: 10, price: 29900, additionalDoc: 650, frequency: this.frequencies[7], costRange: ''},
@@ -71,6 +64,7 @@ export class ContractFormComponent implements OnInit {
 
     this.contractFormGroup = this.formBuilder.group({
       tempContract: this.formBuilder.group({
+        module: [this.services[0].value],
         contractId: [],
         contractDate: [],
         createdBy: [''],
@@ -169,7 +163,7 @@ export class ContractFormComponent implements OnInit {
     if (paymentPlan.discriminatorType != 1) {
       paymentPlan.paymentFrequency = this.frequencies[3];
     }
-    paymentPlan.modulePlan = 'FE';
+    paymentPlan.modulePlan = this.contractFormGroup.controls['module'].value;
     
     //Obtener todos los datos del mantenimiento
     let maintenanceType = new MaintenanceType();

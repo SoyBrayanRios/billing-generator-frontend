@@ -20,7 +20,7 @@ export class InvoiceResumeService {
   }
 
   getInvoiceResumeTable(year: number, module: string): Observable<string[]> {
-    const searchUrl = `${this.baseUrl}/data-table/${year}/FE`;
+    const searchUrl = `${this.baseUrl}/data-table/${year}/${module}`;
     return this.httpClient.get<string[]>(searchUrl);
   }
 
